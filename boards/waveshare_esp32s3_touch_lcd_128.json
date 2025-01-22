@@ -23,7 +23,7 @@
         ]
       ],
       "mcu": "esp32s3",
-      "variant": "waveshare_esp32s3_touch_lcd_128"
+      "variant": "esp32s3"
     },
     "connectivity": [
       "bluetooth",
