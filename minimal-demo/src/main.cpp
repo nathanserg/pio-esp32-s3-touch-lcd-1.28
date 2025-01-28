@@ -67,14 +67,6 @@ void setup()
 #endif
 
 #if 1
-      float acc[3], gyro[3];
-      unsigned int tim_count = 0;
-      uint16_t result;
-
-      QMI8658_init();
-      Serial.println("QMI8658_init\r\n");
-      // DEV_SET_PWM(100);
-      const float conversion_factor = 3.3f / (1 << 12) * 3;
       Paint_Clear(WHITE);
       Paint_DrawRectangle(0, 00, 240, 47, 0XF410, DOT_PIXEL_2X2, DRAW_FILL_FULL);
       Paint_DrawRectangle(0, 47, 240, 120, 0X4F30, DOT_PIXEL_2X2, DRAW_FILL_FULL);
@@ -90,29 +82,9 @@ void setup()
       Paint_DrawString_EN(45, 175, "GYR_Z = ", &Font16, WHITE, BLACK);
       Paint_DrawString_EN(45, 200, "BAT(V)=", &Font16, WHITE, BLACK);
       LCD_1IN28_Display(BlackImage);
-
-      unsigned long startTime = millis();
-      unsigned long timeout = 5000;
-
-      while (millis() - startTime < timeout)
-      {
-          result = DEC_ADC_Read();
-          QMI8658_read_xyz(acc, gyro, &tim_count);
-          Paint_Clear(WHITE);
-          Paint_DrawRectangle(120, 47,  220, 120, 0X4F30, DOT_PIXEL_2X2, DRAW_FILL_FULL);
-          Paint_DrawRectangle(120, 120, 220, 195, 0XAD55, DOT_PIXEL_2X2, DRAW_FILL_FULL);
-          Paint_DrawRectangle(120, 195, 220, 240, 0X2595, DOT_PIXEL_2X2, DRAW_FILL_FULL);
-          Paint_DrawNum(120, 50, acc[0], &Font16, 2, BLACK, WHITE);
-          Paint_DrawNum(120, 75, acc[1], &Font16, 2, BLACK, WHITE);
-          Paint_DrawNum(120, 100, acc[2], &Font16, 2, BLACK, WHITE);
-          Paint_DrawNum(120, 125, gyro[0], &Font16, 2, BLACK, WHITE);
-          Paint_DrawNum(120, 150, gyro[1], &Font16, 2, BLACK, WHITE);
-          Paint_DrawNum(120, 175, gyro[2], &Font16, 2, BLACK, WHITE);
-          Paint_DrawNum(130, 200, result * conversion_factor, &Font16, 2, BLACK, WHITE);
-          LCD_1IN28_DisplayWindows(120, 50, 210, 200, BlackImage);
-          LCD_1IN28_DisplayWindows(130, 200, 220, 220, BlackImage);
-      }
+      DEV_Delay_ms(1000);
 #endif
+}
 
 void loop()
 {

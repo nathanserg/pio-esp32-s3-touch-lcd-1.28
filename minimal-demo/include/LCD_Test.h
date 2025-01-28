@@ -34,8 +34,6 @@
 #include "GUI_Paint.h"
 #include "ImageData.h"
 #include "LCD_1in28.h"
-#include "QMI8658.h"
-#include "CST816S.h"
 #include <stdlib.h> // malloc() free()
 
 int LCD_1in28_test(void);
