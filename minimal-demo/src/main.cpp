@@ -7,7 +7,6 @@ UWORD *BlackImage;
 void setup()
 {
     Serial.begin(115200);
-    touch.begin();
     // PSRAM Initialize
     if(psramInit()){
       Serial.println("\nPSRAM is correctly initialized");
@@ -62,10 +61,6 @@ void setup()
       Paint_DrawCircle(150, 55, 15, GREEN, DOT_PIXEL_1X1, DRAW_FILL_EMPTY);
       Paint_DrawCircle(185, 55, 15, GREEN, DOT_PIXEL_1X1, DRAW_FILL_FULL);
 
-      Paint_DrawNum(50, 80, 9.87654321, &Font20, 3, WHITE, BLACK);
-      Paint_DrawString_EN(50, 100, "ABC", &Font20, 0x000f, 0xfff0);
-      Paint_DrawString_EN(50, 161, "Waveshare", &Font16, RED, WHITE);
-
       // /*3.Refresh the picture in RAM to LCD*/
       LCD_1IN28_Display(BlackImage);
       DEV_Delay_ms(1000);
@@ -95,7 +90,11 @@ void setup()
       Paint_DrawString_EN(45, 175, "GYR_Z = ", &Font16, WHITE, BLACK);
       Paint_DrawString_EN(45, 200, "BAT(V)=", &Font16, WHITE, BLACK);
       LCD_1IN28_Display(BlackImage);
-      while (true)
+
+      unsigned long startTime = millis();
+      unsigned long timeout = 5000;
+
+      while (millis() - startTime < timeout)
       {
           result = DEC_ADC_Read();
           QMI8658_read_xyz(acc, gyro, &tim_count);
@@ -112,30 +111,8 @@ void setup()
           Paint_DrawNum(130, 200, result * conversion_factor, &Font16, 2, BLACK, WHITE);
           LCD_1IN28_DisplayWindows(120, 50, 210, 200, BlackImage);
           LCD_1IN28_DisplayWindows(130, 200, 220, 220, BlackImage);
-          if (touch.available()){
-            if(touch.data.y<45){
-              break;
-            }
-          }
       }
 #endif
-
-    delay(2000);
-#if 1
-    Paint_Clear(WHITE);
-    Paint_DrawRectangle(0, 00, 240, 47, 0x2595, DOT_PIXEL_2X2, DRAW_FILL_FULL);
-    Paint_DrawString_EN(60, 30, "Touch test", &Font16, WHITE, BLACK);
-    LCD_1IN28_Display(BlackImage);
-    while (true)
-    {
-        if (touch.available()){
-          Paint_DrawPoint(touch.data.x, touch.data.y, BLACK, DOT_PIXEL_3X3, DOT_FILL_RIGHTUP);
-          LCD_1IN28_DisplayWindows(touch.data.x, touch.data.y, touch.data.x + 3, touch.data.y + 3, BlackImage);
-        }
-
-    }
-#endif
-}
 
 void loop()
 {
