@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "LCD_Test.h"
+#include "LCD_1in28.h"
 
 UWORD Imagesize = LCD_1IN28_HEIGHT * LCD_1IN28_WIDTH * 2;
 UWORD *BlackImage;
