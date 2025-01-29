@@ -32,7 +32,6 @@
 
 #include "DEV_Config.h"
 #include "GUI_Paint.h"
-#include "ImageData.h"
 #include "LCD_1in28.h"
 #include <stdlib.h> // malloc() free()
 
