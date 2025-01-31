@@ -15,6 +15,8 @@
 #define __LCD_1IN28_H	
 	
 #include "DEV_Config.h"
+#include "DEV_Config.h"
+#include "GUI_Paint.h"
 #include <stdint.h>
 
 #include <stdlib.h>     //itoa()
