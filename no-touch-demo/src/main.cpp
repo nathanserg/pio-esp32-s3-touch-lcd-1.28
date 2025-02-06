@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include "LCD_1in28.h"
+#include <FS.h>
+#include <SPIFFS.h>
 
 UWORD Imagesize = LCD_1IN28_HEIGHT * LCD_1IN28_WIDTH * 2;
 UWORD *BlackImage;
